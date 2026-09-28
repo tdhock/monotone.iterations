@@ -1,0 +1,5 @@
+This is a fork of the CRAN package monotone, which has an excellent C
+library of "legacy" PAVA algorithms, all implemented with the same
+interface: [[file:src/legacyC.c]]
+
+This fork is a research project which aims to instrument these C functions to count how many iterations they do, [[file:src/iterations.c]]

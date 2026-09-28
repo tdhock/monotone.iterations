@@ -1,0 +1,21 @@
+Package: monotone.iterations
+Type: Package
+Title: Iterations Analysis for Monotone Regression
+Version: 2026.9.27
+Authors@R: c(
+ person(given = "Toby", family = "Hocking",  
+        role = c("aut", "cre"), 
+        email = "toby.hocking@r-project.org"), 
+ person(given = "Frank", family = "Busing",  
+        role = c("aut"), 
+        email = "busing@fsw.leidenuniv.nl"), 
+ person("Juan", "Claramunt Gonzalez", 
+        role = "aut", 
+        email = "j.claramunt.gonzalez@fsw.leidenuniv.nl"))
+Description: The monotone package contains a fast up-and-down-blocks implementation for the pool-adjacent-violators algorithm 
+  for simple linear ordered monotone regression, including two spin-off functions
+  for unimodal and bivariate monotone regression (see <doi:10.18637/jss.v102.c01>).
+License: GPL-3
+Encoding: UTF-8
+RoxygenNote: 7.1.1
+
