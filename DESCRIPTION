@@ -1,7 +1,7 @@
 Package: monotone.iterations
 Type: Package
 Title: Iterations Analysis for Monotone Regression
-Version: 2026.9.27
+Version: 2026.10.2
 Authors@R: c(
  person(given = "Toby", family = "Hocking",  
         role = c("aut", "cre"), 

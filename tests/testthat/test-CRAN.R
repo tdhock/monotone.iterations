@@ -1,7 +1,7 @@
 library(testthat)
+requireNamespace("monotone.iterations")#load C routines in pkg.
 test_that("1 iteration", {
   x <- c(1:4, 3)
-  monotone::monotone(x)
   computed <- .C(
     "isoreg_dp_iterations",
     n = as.integer( length(x) ),

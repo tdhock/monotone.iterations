@@ -1,0 +1,9 @@
+Changes in version 2026.10.2
+
+- isoreg_dp_iterations() callable from R via .C().
+
+Changes in version 2026.9.27
+
+- First version forked from monotone, src/iterations.c contains functions with additional 4th argument int *iterations_vec.
+- added isoreg_dp to src/legacyC.c and isoreg_dp_iterations to src/iterations.c.
+
