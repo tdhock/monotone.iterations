@@ -27,7 +27,7 @@ corresponding instrumented version =isoreg_dp_weights_iterations()= in
 | package             | C function for dynamic programming | notes                       |
 |---------------------+------------------------------------+-----------------------------|
 | monotone            | n/a                                | only PAVA functions         |
-| directlabels        | [[|                     |                                    |                             |][isoreg_dp()]]                        | no weights                  |
+| directlabels        | [[https://github.com/tdhock/directlabels/blob/master/src/isoreg_dp.cpp][isoreg_dp()]]                        | no weights                  |
 | monotone.iterations | [[file:src/legacyC.c][isoreg_dp_weights()]]                | yes weights                 |
 | monotone.iterations | [[file:src/iterations.c][isoreg_dp_weights_iterations()]]     | weights, iteration counting |
 
