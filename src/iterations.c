@@ -685,7 +685,7 @@ void jbkpava_iterations ( int *n, double *x, double *w, int *iterations_vec )
   free ( blocks );
 } // jbkpava
 
-void isoreg_dp_iterations ( int *n, double *x, double *w, int *iterations_vec )
+void isoreg_dp_weights_iterations ( int *n, double *x, double *w, int *iterations_vec )
 // author(s): Toby Hocking
 // origin   : github.com/tdhock/directlabels
 // language : C

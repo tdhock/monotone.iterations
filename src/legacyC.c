@@ -664,7 +664,7 @@ void jbkpava ( int *n, double *x, double *w )
   free ( blocks );
 } // jbkpava
 
-void isoreg_dp ( int *n, double *x, double *w )
+void isoreg_dp_weights ( int *n, double *x, double *w )
 // author(s): Toby Hocking
 // origin   : github.com/tdhock/directlabels
 // language : C

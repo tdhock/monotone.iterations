@@ -3,7 +3,7 @@ requireNamespace("monotone.iterations")#load C routines in pkg.
 test_that("1 iteration", {
   x <- c(1:4, 3)
   computed <- .C(
-    "isoreg_dp_iterations",
+    "isoreg_dp_weights_iterations",
     n = as.integer( length(x) ),
     x = as.double( x ),
     w = as.double( rep(1, length(x)) ),
