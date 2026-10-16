@@ -66,4 +66,5 @@ legacy <- function( x, w = rep( 1, length( x ) ), number = 0 )
   else if ( number == 13 ) return( .C( "reg_1d_l2", n = as.integer( n ), x = as.double( x ), w = as.double( w ), PACKAGE = "monotone" )$x )
   else if ( number == 14 ) return( .C( "jbkpava", n = as.integer( n ), x = as.double( x ), w = as.double( w ), PACKAGE = "monotone" )$x )
   else if ( number == 15 ) return( .C( "isoreg_dp", n = as.integer( n ), x = as.double( x ), w = as.double( w ), PACKAGE = "monotone" )$x )
+  else if ( number == 16 ) return( .C( "intcox_pava", n = as.integer( n ), x = as.double( x ), w = as.double( w ), PACKAGE = "monotone" )$x )
 }

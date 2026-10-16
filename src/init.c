@@ -19,6 +19,8 @@ extern void md_pava( int* n, double* x, double* w );
 extern void reg_1d_l2( int* n, double* x, double* w );
 extern void jbkpava( int* n, double* x, double* w );
 extern void isoreg_dp_weights_iterations( int* n, double* x, double* w, int* iterations_vec );
+extern void intcox_pava( int *n, double *x, double *w );
+extern void intcox_pava_iterations( int *n, double *x, double *w, int *iterations_vec );
 
 extern void monotoneC( int* n, double* x, double* w );
 extern void monotoneC_iterations( int* n, double* x, double* w, int* iterations_vec );
@@ -41,7 +43,8 @@ static const R_CMethodDef CEntries[] = {
   {"md_pava",      ( DL_FUNC ) &md_pava,      3},
   {"reg_1d_l2",    ( DL_FUNC ) &reg_1d_l2,    3},
   {"jbkpava",      ( DL_FUNC ) &jbkpava,      3},
-  // TODO add intcox
+  {"intcox_pava",  ( DL_FUNC ) &intcox_pava,  3},
+  {"intcox_pava_iterations",  ( DL_FUNC ) &intcox_pava_iterations,  4},
   {"isoreg_dp_weights_iterations",    ( DL_FUNC ) &isoreg_dp_weights_iterations,    4},
   {"monotoneC_iterations",    ( DL_FUNC ) &monotoneC_iterations,    4},
   {"unimonotoneC", ( DL_FUNC ) &unimonotoneC, 3},

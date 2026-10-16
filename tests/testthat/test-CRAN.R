@@ -1,34 +1,42 @@
 library(testthat)
-requireNamespace("monotone.iterations")#load C routines in pkg.
+requireNamespace("monotone.iterations") # load C routines in pkg.
 test_that("1 iteration for isoreg_dp", {
   x <- c(1:4, 3)
   computed <- .C(
     "isoreg_dp_weights_iterations",
-    n = as.integer( length(x) ),
-    x = as.double( x ),
-    w = as.double( rep(1, length(x)) ),
+    n = as.integer(length(x)),
+    x = as.double(x),
+    w = as.double(rep(1, length(x))),
     iterations = as.integer(rep(-1, length(x))),
-    PACKAGE = "monotone.iterations")
+    PACKAGE = "monotone.iterations"
+  )
   expected <- list(
-    n=5L,
-    x=c(1,2,3,3.5,3.5),
-    w=c(1,1,1,2,1),
-    iterations=as.integer(c(0,0,0,0,1)))
+    n = 5L,
+    x = c(1, 2, 3, 3.5, 3.5),
+    w = c(1, 1, 1, 2, 1),
+    iterations = as.integer(c(0, 0, 0, 0, 1))
+  )
   expect_identical(computed, expected)
 })
 
 test_that("correct mean output for C funs", {
   x <- c(1:4, 3)
-  for(C_fun_name in c("isoreg_dp_weights_iterations","isomean_iterations","monotoneC_iterations")){
+  for (C_fun_name in c(
+    "isoreg_dp_weights_iterations",
+    "isomean_iterations",
+    "monotoneC_iterations",
+    "intcox_pava_iterations"
+  )) {
     L <- .C(
       C_fun_name,
-      n = as.integer( length(x) ),
-      x = as.double( x ),
-      w = as.double( rep(1, length(x)) ),
+      n = as.integer(length(x)),
+      x = as.double(x),
+      w = as.double(rep(1, length(x))),
       iterations = as.integer(rep(-1, length(x))),
-      PACKAGE = "monotone.iterations")
+      PACKAGE = "monotone.iterations"
+    )
     computed <- L$x
-    expected <- c(1,2,3,3.5,3.5)
+    expected <- c(1, 2, 3, 3.5, 3.5)
     expect_identical(computed, expected)
   }
 })

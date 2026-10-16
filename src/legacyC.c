@@ -696,46 +696,50 @@ void isoreg_dp_weights ( int *n, double *x, double *w )
   }
   free ( size_vec );
 }
-
-int max(int a, int b)			
-{								
-	return (a > b ? a : b);		
-}								
-								
-void pavaC(double* w, double* y, int* n, int* index, double* weight, double* ghat)	
+		
+void intcox_pava( int *n, double *x, double *w )
 // author(s): Volker Henschel vhenschel@gmx.de
 // origin   : CRAN Archive intcox package version 0.9.3
 // language : C
 {								
-								
+  int *index = ( int* ) calloc(*n, sizeof(int));
+  double *weight = ( double* ) calloc(*n, sizeof(double));
+  double *ghat = ( double* ) calloc(*n, sizeof(double));
+
 	double nw;					
 	int ci, j, nn;				
-nn=*n-1;						
-								
-ci=0;							
-index[ci]=0;					
-weight[ci]=w[0];				
-ghat[ci]=y[0];					
-								
-for (j=1; j<=nn; j++)			
-{	ci=ci+1;					
-	index[ci]=j;				
-	weight[ci]=w[j];			
-	ghat[ci]=y[j];				
-	while (ci>=1 && ghat[max(ci-1,0)]>=ghat[ci])	
-	{	nw=weight[ci-1]+weight[ci];					
-		ghat[ci-1]=ghat[ci-1]+(weight[ci]/nw)*(ghat[ci]-ghat[ci-1]);	
-		weight[ci-1]=nw;		
-		ci=ci-1;				
-	}							
-}								
-while (nn>=0)					
-{	for (j=index[ci]; j<=nn; j++)	
-	{	ghat[j]=ghat[ci];			
-	}								
-	nn=index[ci]-1;					
-	ci=ci-1;						
-}									
+  nn=*n-1;						
+                  
+  ci=0;							
+  index[ci]=0;					
+  weight[ci]=w[0];				
+  ghat[ci]=x[0];					
+                  
+  for (j=1; j<=nn; j++)			
+  {	ci=ci+1;					
+    index[ci]=j;				
+    weight[ci]=w[j];			
+    ghat[ci]=x[j];				
+    while (ci>=1 && ghat[ci-1]>=ghat[ci])
+    {	nw=weight[ci-1]+weight[ci];					
+      ghat[ci-1]=ghat[ci-1]+(weight[ci]/nw)*(ghat[ci]-ghat[ci-1]);	
+      weight[ci-1]=nw;		
+      ci=ci-1;				
+    }							
+  }								
+  while (nn>=0)					
+  {	for (j=index[ci]; j<=nn; j++)	
+    {	ghat[j]=ghat[ci];			
+    }								
+    nn=index[ci]-1;					
+    ci=ci-1;						
+  }							
+  for (int i = 0; i < *n; i++) {
+    x[i] = ghat[i];
+  }
+  free(index);
+  free(weight);
+  free(ghat);
 }									
 
 

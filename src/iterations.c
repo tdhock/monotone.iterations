@@ -783,3 +783,57 @@ void monotoneC_iterations( int *n, double* x, double* w, int *iterations_vec )
   }
   free( idx );
 } // monotone
+
+void intcox_pava_iterations(int *n, double *x, double *w, int *iterations_vec)
+// author(s): Volker Henschel vhenschel@gmx.de
+// origin   : CRAN Archive intcox package version 0.9.3
+// language : C
+{
+  int *index = (int *)calloc(*n, sizeof(int));
+  double *weight = (double *)calloc(*n, sizeof(double));
+  double *ghat = (double *)calloc(*n, sizeof(double));
+
+  double nw;
+  int ci, j, nn;
+  nn = *n - 1;
+
+  ci = 0;
+  index[ci] = 0;
+  weight[ci] = w[0];
+  ghat[ci] = x[0];
+  iterations_vec[0] = 0;
+
+  for (j = 1; j <= nn; j++)
+  {
+    ci = ci + 1;
+    index[ci] = j;
+    weight[ci] = w[j];
+    ghat[ci] = x[j];
+    iterations_vec[j] = 0;
+    while (ci >= 1 && ghat[ci - 1] >= ghat[ci])
+    {
+      iterations_vec[j]++;
+      nw = weight[ci - 1] + weight[ci];
+      ghat[ci - 1] = ghat[ci - 1] + (weight[ci] / nw) * (ghat[ci] - ghat[ci - 1]);
+      weight[ci - 1] = nw;
+      ci = ci - 1;
+    }
+  }
+  while (nn >= 0)
+  {
+    for (j = index[ci]; j <= nn; j++)
+    {
+      ghat[j] = ghat[ci];
+    }
+    nn = index[ci] - 1;
+    ci = ci - 1;
+  }
+  for (int i = 0; i < *n; i++)
+  {
+    x[i] = ghat[i];
+  }
+
+  free(index);
+  free(weight);
+  free(ghat);
+}
