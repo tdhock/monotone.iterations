@@ -20,12 +20,13 @@ test_that("1 iteration for isoreg_dp", {
 })
 
 test_that("correct mean output for C funs", {
-  x <- c(1:4, 3)
+  x <- c(1:4, 2)
   for (C_fun_name in c(
     "isoreg_dp_weights_iterations",
     "isomean_iterations",
     "monotoneC_iterations",
-    "intcox_pava_iterations"
+    "intcox_pava_iterations",
+    "pooled_pava_iterations"
   )) {
     L <- .C(
       C_fun_name,
@@ -36,7 +37,9 @@ test_that("correct mean output for C funs", {
       PACKAGE = "monotone.iterations"
     )
     computed <- L$x
-    expected <- c(1, 2, 3, 3.5, 3.5)
+    expected <- c(1, 2, 3, 3, 3)
     expect_identical(computed, expected)
+    expect_true(all(L$iterations >= 0))
+    expect_true(any(L$iterations > 0))
   }
 })

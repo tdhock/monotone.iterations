@@ -315,6 +315,8 @@ void iso_pava_iterations( int* n, double* x, double* w, int* iterations_vec )
 {
   x--;
   w--;
+  iterations_vec--;
+  iterations_vec[1] = 0;
   int* kt = ( int* ) calloc( *n + 1, sizeof( int ) );
   bool same;
   for ( size_t i = 1; i <= *n; i++ ) kt[i] = i;
@@ -356,6 +358,7 @@ void isotonic_iterations( int* n, double* x, double* w, int *iterations_vec )
 {
   x--;
   w--;
+  iterations_vec--;
   while ( !sorted_iterations( *n, x ) ) {
     size_t i = 1;
     while ( i < *n ) {
@@ -426,6 +429,8 @@ void pooled_pava_iterations( int *n, double* x, double* w, int *iterations_vec )
 {
   x--;
   w--;
+  iterations_vec--;
+  iterations_vec[1] = 0;
   size_t j = 1;
   size_t* S = ( size_t* ) calloc( *n + 1, sizeof( size_t ) );
   S[0] = 0;
@@ -737,33 +742,33 @@ void monotoneC_iterations( int *n, double* x, double* w, int *iterations_vec )
 {
   double* rx = &x[-1];
   double* rw = &w[-1];
+  int* riter = &iterations_vec[-1];
   size_t* idx = ( size_t* ) calloc( *n + 1, sizeof( size_t ) );
   idx[0] = 0;
   idx[1] = 1;
   size_t b = 1;
   double xbm1 = rx[b];
   double wbm1 = rw[b];
-  iterations_vec[0]=0;
-  iterations_vec[1]=0;
+  for ( size_t i = 1; i <= *n; i++ ) riter[i]=0;
   for ( size_t i = 2; i <= *n; i++ ) {
     b++;
     double xb = rx[i];
     double wb = rw[i];
-    iterations_vec[i]=0;
     if ( xbm1 > xb ) {
+      riter[i]++;
       b--;
       double sb = wbm1 * xbm1 + wb * xb;
       wb += wbm1;
       xb = sb / wb;
       while ( i < *n && xb >= rx[i + 1] ) {
-        iterations_vec[i]++;
+        riter[i]++;
         i++;
         sb += rw[i] * rx[i];
         wb += rw[i];
         xb = sb / wb;
       }
       while ( b > 1 && rx[b - 1] > xb ) {
-        iterations_vec[i]++;
+        riter[i]++;
         b--;
         sb += rw[b] * rx[b];
         wb += rw[b];
