@@ -26,6 +26,7 @@ test_that("correct mean output for C funs", {
     "isomean_iterations",
     "monotoneC_iterations",
     "intcox_pava_iterations",
+    "fitm_iterations",
     "pooled_pava_iterations"
   )) {
     L <- .C(

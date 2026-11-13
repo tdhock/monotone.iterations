@@ -16,10 +16,12 @@ void fitm_iterations( int* n, double* x, double* w, int *iterations_vec )
 {
   x--;
   w--;
+  iterations_vec--;
   int* lblock = ( int* ) calloc( *n + 1, sizeof( int ) );
   double* dhat = ( double* ) calloc( *n + 1, sizeof( double ) );
   for ( size_t i = 1; i <= *n; i++ ) lblock[i] = 1;
   for ( size_t i = 1; i <= *n; i++ ) dhat[i] = x[i] * w[i];
+  for ( size_t i = 1; i <= *n; i++ ) iterations_vec[i] = 0;
   int ma = 1;
   int mb = 0;
   while ( true ) {
@@ -40,6 +42,7 @@ void fitm_iterations( int* n, double* x, double* w, int *iterations_vec )
           double davd = dhat[mad] / wtd;
           if ( davd - dav < 0.0 ) nsatis = nsatis + 1;
           else {
+            iterations_vec[mb]++;
             int knew = k + kd;
             lblock[mad] = knew;
             lblock[mb] = knew;
@@ -61,6 +64,7 @@ void fitm_iterations( int* n, double* x, double* w, int *iterations_vec )
           double davu = dhat[mau] / wtu;
           if ( dav - davu < 0.0 ) nsatis = nsatis + 1;
           else {
+            iterations_vec[mbu]++;
             int knew = k + ku;
             lblock[ma] = knew;
             lblock[mbu] = knew;

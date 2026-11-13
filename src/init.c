@@ -4,6 +4,7 @@
 
 extern void fake( int *n, double* x, double* w );
 extern void fitm( int* n, double* x, double* w );
+extern void fitm_iterations( int* n, double* x, double* w, int *iterations_vec );
 extern void wmrmnh( int* n, double* x, double* w );
 extern void amalgm( int* n, double* x, double* w );
 extern void pav( int* n, double* x, double* w );
@@ -30,6 +31,7 @@ extern void bimonotoneC( int* n, int* m, double* x, double* w, int* maxiter, dou
 static const R_CMethodDef CEntries[] = {
   {"fake",         ( DL_FUNC ) &fake,         3},
   {"fitm",         ( DL_FUNC ) &fitm,         3},
+  {"fitm_iterations", ( DL_FUNC ) &fitm_iterations, 4},
   {"wmrmnh",       ( DL_FUNC ) &wmrmnh,       3},
   {"amalgm",       ( DL_FUNC ) &amalgm,       3},
   {"pav",          ( DL_FUNC ) &pav,          3},
